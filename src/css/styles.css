@@ -1,0 +1,109 @@
+body {
+    font-family: Arial, sans-serif;
+}
+
+.sidebar {
+    height: auto;
+    background-color: #2c3e50;
+    padding-top: 20px;
+}
+
+.sidebar a {
+    color: #ecf0f1;
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+}
+
+.sidebar a:hover {
+    text-decoration: underline;
+}
+
+.main-content {
+    padding: 20px;
+}
+
+.header {
+    background-color: #ecf0f1;
+    padding: 10px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.header .user-info {
+    display: flex;
+    align-items: center;
+}
+
+.header .user-info img {
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.form-section {
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-section h2 {
+    margin-bottom: 20px;
+}
+
+.form-section .form-group {
+    margin-bottom: 15px;
+}
+
+.form-section .form-group label {
+    font-weight: bold;
+}
+
+.form-section .btn-primary {
+    background-color: #2980b9;
+    border-color: #2980b9;
+}
+
+.card-body ul li {
+    list-style-type: none;
+}
+
+.card-header,
+.card-body {
+    background-color: #2c3e50;
+}
+
+.accordion{
+    border: #2c3e50;
+}
+
+.btn-link {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+}
+
+.btn-link:hover {
+    text-decoration: none;
+    color: #a8a3a3;
+    font-weight: bold;
+}
+
+.card {
+    border: none;
+}
+
+.card-header {
+    border: none;
+    
+}
+
+.card-body {
+    border: none;
+}
+
+.card-header .btn-link {
+    color: white;
+    text-decoration: none;
+}
