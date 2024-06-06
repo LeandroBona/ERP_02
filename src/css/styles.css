@@ -8,6 +8,8 @@ body {
     padding-top: 20px;
 }
 
+
+
 .sidebar a {
     color: #ecf0f1;
     display: block;
@@ -16,7 +18,8 @@ body {
 }
 
 .sidebar a:hover {
-    text-decoration: underline;
+    background-color: #2980b9;
+    border-radius: 15px;
 }
 
 .main-content {
@@ -67,6 +70,7 @@ body {
 
 .card-body ul li {
     list-style-type: none;
+    margin-left: -20px;
 }
 
 .card-header,
@@ -107,3 +111,30 @@ body {
     color: white;
     text-decoration: none;
 }
+
+.botoes, 
+.finalizar {
+    text-align: center;
+}
+
+.text{
+    margin-bottom: -4px;
+}
+
+.user-info {
+    display: flex;
+    align-items: center; /* Alinha verticalmente os itens no centro */
+  }
+  .user-info img {
+    margin-right: 10px; /* Espaçamento horizontal entre a imagem e o texto */
+    border-radius: 50%; /* Faz a imagem ficar redonda */
+  }
+  .user-info .text p {
+    margin: 0; /* Remove as margens padrão dos parágrafos */
+  }
+  .user-info .text p:first-child {
+    font-weight: bold; /* Adiciona um peso maior ao primeiro parágrafo */
+  }
+  .user-info .text p:not(:first-child) {
+    margin-top: 2px; /* Espaçamento vertical entre os parágrafos */
+  }

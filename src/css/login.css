@@ -1,0 +1,38 @@
+body {
+    background-color: #2980b9;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-header {
+    background-color: #e9ecef;
+    border-bottom: none;
+    padding: 20px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+  }
+  
+  .card-header img {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .card-header h5 {
+    margin: 0;
+    font-weight: bold;
+  }
+  
+  .card-header p {
+    margin: 0;
+    color: #6c757d;
+  }
+  
