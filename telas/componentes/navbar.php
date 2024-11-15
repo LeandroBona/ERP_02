@@ -1,24 +1,8 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-
-<head>
-    <!--NÃO ALTERAR-->
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cadastro de Fornecedores</title>
-    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="src/css/styles.css">
-    <!--NÃO ALTERAR-->
-    <!--ADICIONE ICONS, CSS ABAIXO-->
-</head>
 
 <body>
-    <!--NÃO ALTERAR NAV BAR-->
-    <div class="container-fluid">
-        <div class="row">
-            <nav class="col-md-2 sidebar">
+<nav class="col-md-2 sidebar">
                 <div class="logo">
-                    <h2 class="text-center text-white">Logo do Cliente</h2>
+                    <h2 class="text-center text-white"><a href="../../index.php">Logo do Cliente</a></h2>
                 </div>
                 <div class="accordion" id="accordionExample">
                     <div class="card">
@@ -34,8 +18,8 @@
                             data-parent="#accordionExample">
                             <div class="card-body">
                                 <ul>
-                                    <li><a href="">Cadastrar Produto</a></li>
-                                    <li><a href="">Listar Produtos</a></li>
+                                    <li><a href="../produtos/cadastrar.php">Cadastrar Produto</a></li>
+                                    <li><a href="../produtos/read.php">Listar Produtos</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -53,8 +37,8 @@
                             data-parent="#accordionExample">
                             <div class="card-body">
                                 <ul>
-                                    <li><a href="">Realizar Pedido</a></li>
-                                    <li><a href="">Listar Pedidos</a></li>
+                                    <li><a href="../pedidos/cadastrar.php">Realizar Pedido</a></li>
+                                    <li><a href="../pedidos/read.php">Listar Pedidos</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -72,8 +56,8 @@
                             data-parent="#accordionExample">
                             <div class="card-body">
                                 <ul>
-                                    <li><a href="">Cadastrar Fornecedor</a></li>
-                                    <li><a href="">Listar Fornecedores</a></li>
+                                    <li><a href="../fornecedores/cadastrar.php">Cadastrar Fornecedor</a></li>
+                                    <li><a href="../fornecedores/read.php">Listar Fornecedores</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -91,8 +75,8 @@
                             data-parent="#accordionExample">
                             <div class="card-body">
                                 <ul>
-                                    <li><a href="">Cadastrar Funcionários</a></li>
-                                    <li><a href="">Listar Funcionarios</a></li>
+                                    <li><a href="../funcionarios/cadastrar.php">Cadastrar Funcionários</a></li>
+                                    <li><a href="../funcionarios/read.php.php">Listar Funcionarios</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -110,8 +94,8 @@
                             data-parent="#accordionExample">
                             <div class="card-body">
                                 <ul>
-                                    <li><a href="">Atualizar Estoque</a></li>
-                                    <li><a href="">Visualizar Estoque</a></li>
+                                    <li><a href="../estoque/estoque.php">Atualizar Estoque</a></li>
+                                    <li><a href="../estoque/read.php">Visualizar Estoque</a></li>
                                 </ul>
                             </div>
                         </div>
@@ -129,40 +113,12 @@
                             data-parent="#accordionExample">
                             <div class="card-body">
                                 <ul>
-                                    <li><a href="">Registrar Equipamentos</a></li>
-                                    <li><a href="">Listar Equipamentos</a></li>
+                                    <li><a href="../equipamentos/cadastrar.php">Registrar Equipamentos</a></li>
+                                    <li><a href="../equipamentos/read.php">Listar Equipamentos</a></li>
                                 </ul>
                             </div>
                         </div>
                     </div>
                 </div>
             </nav>
-            <!--NÃO ALTERAR-->
-            <main class="col-md-10 main-content">
-                <div class="header">
-                    <h1>TÍTULO DO TRABALHO</h1>
-                    <div class="user-info">
-                        <img src="https://via.placeholder.com/40" alt="User Avatar">
-                        <div class="text">
-                            <p>Funcionário666</p>
-                            <p>Função xyz</p>
-                        </div>
-                    </div>
-                </div>
-                <!--NÃO ALTERAR-->
-                <!--ADICIONE OS CAMPOS ABAIXO-->
-
-
-                <!--NÃO ALTERAR-->
-            </main>
-        </div>
-    </div>
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!--NÃO ALTERAR-->
-    <!--ADICIONE O JS ABAIXO-->
-
-</body>
-
-</html>
+             
