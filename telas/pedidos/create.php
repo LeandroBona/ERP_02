@@ -1,53 +1,50 @@
 <?php
-require_once '../admin/config.php';
+error_reporting(E_ALL);
+ini_set('display_errors', 1);  
+
+include '../admin/config.php'; 
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+    
+    $nome = $_POST['nome'];
+    $descricao = $_POST['descricao'];
+    $categoria_id = $_POST['categoria_id'];
+
+    
+    $preco_venda = $_POST['preco_venda'];
+    $preco_venda = str_replace("R$ ", "", $preco_venda); 
+    $preco_venda = str_replace(".", "", $preco_venda);  
+    $preco_venda = str_replace(",", ".", $preco_venda);  
+
+    $preco_custo = $_POST['preco_custo'];
+    $preco_custo = str_replace("R$ ", "", $preco_custo);  
+    $preco_custo = str_replace(".", "", $preco_custo);  
+    $preco_custo = str_replace(",", ".", $preco_custo);  
+
+    $unidade_medida = $_POST['unidade_medida'];
+    $fornecedor_id = $_POST['fornecedor_id'];
+
     try {
-        // Iniciar a transação
-        $pdo->beginTransaction();
+        $sql = "INSERT INTO produtos (nome, descricao, categoria_id, preco_venda, preco_custo, unidade_medida, fornecedor_id)
+                VALUES (:nome, :descricao, :categoria_id, :preco_venda, :preco_custo, :unidade_medida, :fornecedor_id)";
+        
+        $stmt = $pdo->prepare($sql);
+        $stmt->bindParam(':nome', $nome);
+        $stmt->bindParam(':descricao', $descricao);
+        $stmt->bindParam(':categoria_id', $categoria_id);
+        $stmt->bindParam(':preco_venda', $preco_venda);
+        $stmt->bindParam(':preco_custo', $preco_custo);
+        $stmt->bindParam(':unidade_medida', $unidade_medida);
+        $stmt->bindParam(':fornecedor_id', $fornecedor_id);
 
-        // Capturar dados do formulário
-        $funcionario_id = $_POST['funcionario_id'];
-        $status = $_POST['status'];
-        $produto_ids = $_POST['produto_id'];
-        $quantidades = $_POST['quantidade'];
-
-        // Calcular valor total do pedido (ajuste para somar os preços dos produtos conforme necessário)
-        $valor_total = 0; // Aqui você pode adicionar uma lógica para calcular o valor total com base nos produtos e suas quantidades.
-
-        // Inserir o pedido na tabela `pedidos`
-        $sql_pedido = "INSERT INTO pedidos (data_pedido, status, valor_total, funcionario_id) VALUES (NOW(), ?, ?, ?)";
-        $stmt_pedido = $pdo->prepare($sql_pedido);
-        $stmt_pedido->execute([$status, $valor_total, $funcionario_id]);
-
-        // Pegar o ID do pedido recém-criado
-        $pedido_id = $pdo->lastInsertId();
-
-        // Inserir cada item na tabela `itens_pedidos` e atualizar o estoque
-        foreach ($produto_ids as $index => $produto_id) {
-            $quantidade = $quantidades[$index];
-
-            // Inserir item do pedido
-            $sql_item = "INSERT INTO itens_pedidos (pedido_id, produto_id, quantidade) VALUES (?, ?, ?)";
-            $stmt_item = $pdo->prepare($sql_item);
-            $stmt_item->execute([$pedido_id, $produto_id, $quantidade]);
-
-            // Registrar a movimentação de saída no estoque
-            $sql_estoque = "INSERT INTO estoque (produto_id, tipo_movimentacao, quantidade, data_movimentacao) VALUES (?, 'saida', ?, NOW())";
-            $stmt_estoque = $pdo->prepare($sql_estoque);
-            $stmt_estoque->execute([$produto_id, $quantidade]);
+        if ($stmt->execute()) {
+            header("Location: read.php"); 
+            exit;
+        } else {
+            echo "Erro ao cadastrar produto!";
         }
-
-        // Confirmar a transação
-        $pdo->commit();
-
-        // Redirecionar após sucesso
-        header("Location: read.php?success=1");
-        exit;
-    } catch (Exception $e) {
-        // Reverter a transação em caso de erro
-        $pdo->rollBack();
-        echo "Erro ao cadastrar pedido: " . $e->getMessage();
+    } catch (PDOException $e) {
+        echo "Erro ao cadastrar: " . $e->getMessage();
     }
 }
 ?>

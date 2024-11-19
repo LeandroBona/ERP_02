@@ -1,8 +1,6 @@
 <?php
-// Conectar ao banco de dados
 require_once '../admin/config.php';
 
-// Buscar todos os setores
 $sql = "SELECT * FROM setores";
 $stmt = $pdo->prepare($sql);
 $stmt->execute();
@@ -18,7 +16,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $salario = $_POST['salario'];
     $metodo_pagamento = $_POST['metodo_pagamento'];
 
-    // Inserir o novo funcionário no banco de dados
     $sql = "INSERT INTO funcionarios (nome, cargo, setor_id, telefone, email, data_admissao, salario, metodo_pagamento) 
             VALUES (?, ?, ?, ?, ?, ?, ?, ?)";
     $stmt = $pdo->prepare($sql);

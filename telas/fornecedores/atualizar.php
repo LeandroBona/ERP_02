@@ -4,23 +4,20 @@ ini_set('display_errors', 1);
 
 include '../admin/config.php';
 
-// Verifica se o 'id' foi passado via GET
 if (isset($_GET['id'])) {
-    $fornecedor_id = $_GET['id'];  // Pega o ID do fornecedor da URL
+    $fornecedor_id = $_GET['id'];  
 } else {
     echo "Erro: ID do fornecedor não encontrado!";
     exit;
 }
 
 try {
-    // Prepara a consulta para buscar o fornecedor usando o 'fornecedor_id'
     $sql = "SELECT * FROM fornecedores WHERE fornecedor_id = :fornecedor_id";
     $stmt = $pdo->prepare($sql);
     $stmt->bindParam(':fornecedor_id', $fornecedor_id, PDO::PARAM_INT);
     $stmt->execute();
-    $fornecedor = $stmt->fetch(PDO::FETCH_ASSOC);  // Armazena o resultado na variável $fornecedor
+    $fornecedor = $stmt->fetch(PDO::FETCH_ASSOC);  
 
-    // Se o fornecedor não for encontrado, exibe uma mensagem de erro
     if (!$fornecedor) {
         echo "Fornecedor não encontrado!";
         exit;

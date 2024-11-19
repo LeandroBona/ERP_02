@@ -19,7 +19,6 @@ if (isset($_GET['id'])) {
     die("ID do produto não fornecido.");
 }
 
-// Buscar as categorias e fornecedores para preencher os selects
 $categorias_sql = "SELECT * FROM categorias";
 $categorias_stmt = $pdo->prepare($categorias_sql);
 $categorias_stmt->execute();
@@ -32,6 +31,7 @@ $fornecedores = $fornecedores_stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php include '../componentes/head.php'; ?>
+
 <body>
     <?php include '../componentes/navbar.php'; ?>
     <div class="container">
@@ -66,18 +66,23 @@ $fornecedores = $fornecedores_stmt->fetchAll(PDO::FETCH_ASSOC);
                     <?php endforeach; ?>
                 </select>
             </div>
-            <div class="form-group">
-                <label for="preco_venda">Preço de Venda</label>
-                <input type="number" name="preco_venda" id="preco_venda" class="form-control" value="<?php echo $produto['preco_venda']; ?>" step="0.01" required>
+            <div class="row">
+                <div class="form-group col-md-4">
+                    <label for="preco_venda">Preço de Venda</label>
+                    <input type="number" name="preco_venda" id="preco_venda" class="form-control" value="<?php echo $produto['preco_venda']; ?>" step="0.01" required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="preco_custo">Preço de Custo</label>
+                    <input type="number" name="preco_custo" id="preco_custo" class="form-control" value="<?php echo $produto['preco_custo']; ?>" step="0.01" required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="unidade_medida">Unidade de Medida</label>
+                    <input type="text" name="unidade_medida" id="unidade_medida" class="form-control" value="<?php echo $produto['unidade_medida']; ?>" required>
+                </div>
             </div>
-            <div class="form-group">
-                <label for="preco_custo">Preço de Custo</label>
-                <input type="number" name="preco_custo" id="preco_custo" class="form-control" value="<?php echo $produto['preco_custo']; ?>" step="0.01" required>
-            </div>
-            <div class="form-group">
-                <label for="unidade_medida">Unidade de Medida</label>
-                <input type="text" name="unidade_medida" id="unidade_medida" class="form-control" value="<?php echo $produto['unidade_medida']; ?>" required>
-            </div>
+
             <button type="submit" class="btn btn-primary">Atualizar</button>
         </form>
     </div>

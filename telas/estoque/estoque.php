@@ -1,8 +1,6 @@
 <?php
-// Conectar ao banco de dados
 require_once '../admin/config.php';
 
-// Buscar todos os produtos e suas quantidades no estoque
 $sql = "SELECT p.produto_id, p.nome, SUM(e.quantidade) as quantidade
         FROM produtos p
         LEFT JOIN estoque e ON p.produto_id = e.produto_id
@@ -13,6 +11,7 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php include '../componentes/head.php'; ?>
+
 <body>
     <?php include '../componentes/navbar.php'; ?>
     <div class="container">
@@ -31,9 +30,9 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
                         <td><?php echo $produto['nome']; ?></td>
                         <td><?php echo $produto['quantidade']; ?></td>
                         <td>
-                            <a href="atualizar.php?id=<?php echo $produto['produto_id']; ?>" class="btn btn-warning btn-sm">Editar Estoque</a>
-                            <a href="movimentar_estoque.php?id=<?php echo $produto['produto_id']; ?>&tipo=entrada" class="btn btn-success btn-sm">Adicionar</a>
-                            <a href="movimentar_estoque.php?id=<?php echo $produto['produto_id']; ?>&tipo=saida" class="btn btn-danger btn-sm">Diminuir</a>
+                            <a href="adicionar_estoque.php?id=<?php echo $produto['produto_id']; ?>&quantidade=1" class="btn btn-success btn-sm">
+                                <i class="bi bi-plus-circle"></i> 
+                            </a>
                         </td>
                     </tr>
                 <?php endforeach; ?>
@@ -41,3 +40,4 @@ $produtos = $stmt->fetchAll(PDO::FETCH_ASSOC);
         </table>
     </div>
     <?php include '../componentes/footer.php'; ?>
+</body>

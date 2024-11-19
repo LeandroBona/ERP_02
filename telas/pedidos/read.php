@@ -1,7 +1,7 @@
 <?php
 require_once '../admin/config.php';
 
-// Consulta SQL com JOIN para trazer os pedidos, funcionários, produtos e itens dos pedidos
+
 $stmt = $pdo->query("SELECT pedidos.*, 
                             funcionarios.nome AS funcionario_nome, 
                             itens_pedidos.*, 
@@ -14,7 +14,6 @@ $stmt = $pdo->query("SELECT pedidos.*,
 
 $pedidos = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
-// Função para calcular o valor total de um pedido
 function calcularValorTotal($pedido_id, $pedidos) {
     $valor_total = 0;
     foreach ($pedidos as $pedido) {
@@ -43,7 +42,6 @@ function calcularValorTotal($pedido_id, $pedidos) {
             </thead>
             <tbody>
                 <?php 
-                // Criar um array para armazenar os pedidos com seus valores totais calculados
                 $pedidos_grouped = [];
                 foreach ($pedidos as $pedido) {
                     $pedidos_grouped[$pedido['pedido_id']][] = $pedido;
@@ -65,7 +63,6 @@ function calcularValorTotal($pedido_id, $pedidos) {
                     </td>
                 </tr>
 
-                <!-- Modal para ver detalhes do pedido -->
                 <div class="modal fade" id="detalhesModal<?= $pedido_id ?>" tabindex="-1" aria-labelledby="detalhesModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -92,7 +89,6 @@ function calcularValorTotal($pedido_id, $pedidos) {
                                     <?php endforeach; ?>
                                 </ul>
 
-                                <!-- Formulário de edição de status do pedido -->
                                 <form action="update.php" method="post">
                                     <input type="hidden" name="pedido_id" value="<?= $pedido_id ?>">
                                     <div class="form-group">

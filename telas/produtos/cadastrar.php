@@ -1,15 +1,13 @@
 <?php
 error_reporting(E_ALL);
-ini_set('display_errors', 1);  // Exibe erros na tela
+ini_set('display_errors', 1); 
 
-include '../admin/config.php';  // Certifique-se de que o caminho do config.php está correto
+include '../admin/config.php';  
 
-// Consulta para pegar todas as categorias
 $sql_categoria = "SELECT categoria_id, nome FROM categorias";
 $stmt_categoria = $pdo->prepare($sql_categoria);
 $stmt_categoria->execute();
 
-// Consulta para pegar todos os fornecedores
 $sql_fornecedor = "SELECT fornecedor_id, nome FROM fornecedores";
 $stmt_fornecedor = $pdo->prepare($sql_fornecedor);
 $stmt_fornecedor->execute();
@@ -44,20 +42,23 @@ $stmt_fornecedor->execute();
                 </select><br>
             </div>
 
-            <div class="form-group">
-                <label for="preco_venda">Preço de Venda:</label>
-                <input type="text" name="preco_venda" id="preco_venda" class="form-control"><br>
+            <div class="row">
+                <div class="form-group col-md-4"">
+                    <label for="preco_venda">Preço de Venda</label>
+                    <input type="text" class="form-control" id="preco_venda" name="preco_venda" required>
+                </div>
+
+                <div class="form-group col-md-4"">
+                    <label for="preco_custo">Preço de Custo</label>
+                    <input type="text" class="form-control" id="preco_custo" name="preco_custo" required>
+                </div>
+
+                <div class="form-group col-md-4">
+                    <label for="unidade_medida">Unidade de Medida:</label>
+                    <input type="text" name="unidade_medida" id="unidade_medida" class="form-control">
+                </div>
             </div>
 
-            <div class="form-group">
-                <label for="preco_custo">Preço de Custo:</label>
-                <input type="text" name="preco_custo" id="preco_custo" class="form-control"><br>
-            </div>
-
-            <div class="form-group">
-                <label for="unidade_medida">Unidade de Medida:</label>
-                <input type="text" name="unidade_medida" id="unidade_medida" class="form-control"><br>
-            </div>
 
             <div class="form-group">
                 <label for="fornecedor_id">Fornecedor:</label>

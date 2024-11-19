@@ -1,6 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-
 <?php include '../componentes/head.php'; ?>
 <body>
     <?php include '../componentes/navbar.php'; ?>

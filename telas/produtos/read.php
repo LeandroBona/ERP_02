@@ -6,7 +6,7 @@ include '../admin/config.php';
 
 
 try {
-    // Consulta para listar os produtos com join das tabelas categorias e fornecedores
+    
     $sql = "SELECT p.produto_id, p.nome, p.descricao, c.nome AS categoria, f.nome AS fornecedor, 
                    p.preco_venda, p.preco_custo, p.unidade_medida 
             FROM produtos p
@@ -21,6 +21,7 @@ try {
 ?>
 
 <?php include '../componentes/head.php'; ?>
+
 <body>
     <?php include '../componentes/navbar.php'; ?>
     <div class="container my-5">
@@ -46,20 +47,33 @@ try {
                         <td><?php echo $produto['descricao']; ?></td>
                         <td><?php echo $produto['categoria']; ?></td>
                         <td><?php echo $produto['fornecedor']; ?></td>
-                        <td><?php echo $produto['preco_venda']; ?></td>
-                        <td><?php echo $produto['preco_custo']; ?></td>
+                        <td>
+                            <?php
+                            echo "R$ " . number_format($produto['preco_venda'], 2, ',', '.');
+                            ?>
+                        </td>
+                        <td>
+                            <?php
+                            echo "R$ " . number_format($produto['preco_custo'], 2, ',', '.');
+                            ?>
+                        </td>
                         <td><?php echo $produto['unidade_medida']; ?></td>
                         <td>
-                            <a href="atualizar.php?id=<?php echo $produto['produto_id']; ?>" class="btn btn-warning">Atualizar</a>
-                            <a href="delete.php?id=<?php echo $produto['produto_id']; ?>" class="btn btn-danger">Deletar</a>
+                            <a href="atualizar.php?id=<?php echo $produto['produto_id']; ?>" class="btn btn-warning">
+                                <i class="fas fa-edit"></i>
+                            </a>
+                            <a href="delete.php?id=<?php echo $produto['produto_id']; ?>" class="btn btn-danger">
+                                <i class="fas fa-trash"></i>
+                            </a>
                         </td>
                     </tr>
                 <?php endwhile; ?>
+
             </tbody>
         </table>
         <div class="text-right">
-        <a href="cadastrar.php" class="btn btn-primary mt-3">Cadastrar Novo Fornecedor</a>
+            <a href="cadastrar.php" class="btn btn-primary mt-3">Cadastrar Novo Fornecedor</a>
+        </div>
     </div>
-    </div>
-   
+
     <?php include '../componentes/footer.php'; ?>

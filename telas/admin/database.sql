@@ -1,96 +1,111 @@
-create database IF NOT EXISTS erp_sesi;
+-- Copia o código e executa no banco 
+CREATE SCHEMA IF NOT EXISTS `sesi_senai`;
 
-use erp_sesi;
--- Criação tabelas Pais --
-create table fornecedores(
-fornecedor_id  int(11) auto_increment primary key,
-nome varchar(100) not null,
-telefone varchar(20) not null,
-email varchar(100) not null,
-endereco varchar (25)
+USE `sesi_senai`;
+
+CREATE TABLE IF NOT EXISTS `categorias` (
+  `categoria_id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `descricao` TEXT NULL,
+  PRIMARY KEY (`categoria_id`)
 );
 
-create table setores(
-setor_id  int(11) auto_increment primary key,
-nome varchar(100) not null,
-descricao text
+CREATE TABLE IF NOT EXISTS `fornecedores` (
+  `fornecedor_id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `telefone` VARCHAR(20) NOT NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `endereco` VARCHAR(25) NULL,
+  PRIMARY KEY (`fornecedor_id`)
 );
 
-create table categorias(
-categoria_id  int(11) auto_increment primary key,
-nome varchar(100) not null,
-descricao text
+CREATE TABLE IF NOT EXISTS `produtos` (
+  `produto_id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `descricao` TEXT NOT NULL,
+  `categoria_id` INT NOT NULL,
+  `preco_venda` DECIMAL(10,2),
+  `preco_custo` DECIMAL(10,2),
+  `unidade_medida` VARCHAR(200),
+  `fornecedor_id` INT NOT NULL,
+  `quantidade` INT DEFAULT 0,
+  PRIMARY KEY (`produto_id`),
+  FOREIGN KEY (`categoria_id`) REFERENCES `categorias` (`categoria_id`),
+  FOREIGN KEY (`fornecedor_id`) REFERENCES `fornecedores` (`fornecedor_id`)
 );
 
--- Criação tabelas Filhos --
-create table produtos(
-produto_id  int(11) auto_increment primary key,
-nome varchar(100) not null,
-descricao text not null,
-categoria_id int not null,
-preco_venda decimal(10,2),
-preco_custo decimal(10,2),
-quantidade_estoque int,
-unidade_medida varchar(200),
-fornecedor_id int not null,
-foreign key (categoria_id) references categorias(categoria_id),
-foreign key (fornecedor_id) references fornecedores(fornecedor_id)
+CREATE TABLE IF NOT EXISTS `estoque` (
+  `estoque_id` INT NOT NULL AUTO_INCREMENT,
+  `produto_id` INT NOT NULL,
+  `quantidade` INT NOT NULL,
+  `data_movimentacao` DATETIME NULL,
+  `tipo_movimentacao` ENUM('entrada', 'saida', 'devolução'),
+  PRIMARY KEY (`estoque_id`),
+  FOREIGN KEY (`produto_id`) REFERENCES `produtos` (`produto_id`)
 );
 
-create table estoque(
-estoque_id  int(11) auto_increment primary key,
-produto_id int not null,
-tipo_movimentacao enum ('entrada', 'saida', 'devolução') not null,
-quantidade int not null,
-data_movimentacao datetime,
-foreign key (produto_id) references produtos(produto_id)
+CREATE TABLE IF NOT EXISTS `setores` (
+  `setor_id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `descricao` TEXT NULL,
+  PRIMARY KEY (`setor_id`)
 );
 
-create table funcionarios(
-funcionario_id  int(11) auto_increment primary key,
-nome varchar(100) not null,
-cargo varchar(50) not null,
-setor_id int not null,
-telefone varchar(20),
-email varchar(100) not null,
-data_admissao date not null,
-salario decimal(10,2),
-metodo_pagamento varchar(50),
-foreign key (setor_id) references setores(setor_id)
+CREATE TABLE IF NOT EXISTS `funcionarios` (
+  `funcionario_id` INT NOT NULL AUTO_INCREMENT,
+  `nome` VARCHAR(100) NOT NULL,
+  `cargo` VARCHAR(50) NOT NULL,
+  `setor_id` INT NOT NULL,
+  `telefone` VARCHAR(20) NULL,
+  `email` VARCHAR(100) NOT NULL,
+  `data_admissao` DATE NOT NULL,
+  `salario` DECIMAL(10,2),
+  `metodo_pagamento` VARCHAR(50),
+  PRIMARY KEY (`funcionario_id`),
+  FOREIGN KEY (`setor_id`) REFERENCES `setores` (`setor_id`)
 );
 
-create table manutencoes(
-manutencao_id  int(11) auto_increment primary key,
-equipamento varchar(100) not null,
-descricao_problema text not null,
-data_inicio datetime not null,
-data_termino datetime not null,
-tecnico_responsavel varchar(100),
-status enum('quebrado','funcional'),
-responsavel_id int not null,
-foreign key (responsavel_id) references funcionarios(funcionario_id)
+CREATE TABLE IF NOT EXISTS `pedidos` (
+  `pedido_id` INT NOT NULL AUTO_INCREMENT,
+  `data_pedido` DATETIME NOT NULL,
+  `status` ENUM('Ativo', 'Inativo', 'Suspenso') NOT NULL,
+  `valor_total` DECIMAL(10,2),
+  `funcionario_id` INT NOT NULL,
+  PRIMARY KEY (`pedido_id`),
+  FOREIGN KEY (`funcionario_id`) REFERENCES `funcionarios` (`funcionario_id`)
 );
 
-create table pedidos(
-pedido_id  int(11) auto_increment primary key,
-data_pedido datetime not null,
-status enum('Ativo', 'Inativo', 'Suspenso') not null,
-valor_total decimal(10,2),
-funcionario_id int not null,
-foreign key (funcionario_id) references funcionarios(funcionario_id)
+CREATE TABLE IF NOT EXISTS `itens_pedidos` (
+  `itempedido_id` INT NOT NULL AUTO_INCREMENT,
+  `pedido_id` INT NOT NULL,
+  `produto_id` INT NOT NULL,
+  `quantidade` INT NOT NULL,
+  PRIMARY KEY (`itempedido_id`),
+  FOREIGN KEY (`pedido_id`) REFERENCES `pedidos` (`pedido_id`),
+  FOREIGN KEY (`produto_id`) REFERENCES `produtos` (`produto_id`)
 );
 
-create table itens_pedidos(
-itempedido_id  int(11) auto_increment primary key,
-pedido_id int not null,
-produto_id int not null,
-quantidade int not null,
-foreign key (pedido_id) references pedidos(pedido_id),
-foreign key (produto_id) references produtos(produto_id)
+CREATE TABLE IF NOT EXISTS `manutencoes` (
+  `manutencao_id` INT NOT NULL AUTO_INCREMENT,
+  `equipamento` VARCHAR(100) NOT NULL,
+  `descricao_problema` TEXT NOT NULL,
+  `data_inicio` DATETIME NOT NULL,
+  `data_termino` DATETIME NOT NULL,
+  `tecnico_responsavel` VARCHAR(100) NULL,
+  `status` ENUM('quebrado', 'funcional'),
+  `responsavel_id` INT NOT NULL,
+  PRIMARY KEY (`manutencao_id`),
+  FOREIGN KEY (`responsavel_id`) REFERENCES `funcionarios` (`funcionario_id`)
 );
 
+-- precisa inserir manualmente no banco de dados os setores e categorias
 
-alter table estoque
-add column tipo_movimentacao enum ('entrada', 'saida', 'devolução');
+insert into categorias(nome, descricao)
+values
+('smartphones', 'celulares saudáveis'),
+('tablet', 'tablete saudável');
 
-ALTER TABLE produtos ADD COLUMN quantidade INT DEFAULT 0;
+insert into setores(nome,descricao)
+values
+('t.i', 'esses caras manjam'),
+('vendas', 'pessoal que vende coisa');

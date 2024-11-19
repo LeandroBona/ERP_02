@@ -7,7 +7,7 @@
     <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="src/css/styles.css">
     <style>
-        /* Estilos adicionais */
+        
         .container-modules {
             display: flex;
             flex-wrap: wrap;
@@ -43,14 +43,12 @@
     <div class="container">
         <h1 class="text-center my-4">Bem-vindo ao ERP</h1>
         <div class="container-modules">
-            <!-- Quadradinhos dos módulos -->
             <a href="telas/produtos/read.php" class="module-card">Produtos</a>
             <a href="telas/pedidos/read.php" class="module-card">Pedidos</a>
             <a href="telas/fornecedores/read.php" class="module-card">Fornecedores</a>
             <a href="telas/funcionarios/read.php" class="module-card">Funcionários</a>
             <a href="telas/estoque/estoque.php" class="module-card">Estoque</a>
-            
-            <!-- Adicione mais módulos conforme necessário -->
+            <a href="telas/equipamentos/read.php" class="module-card">Equipamentos</a>
         </div>
     </div>
     <?php include 'telas/componentes/footer.php'; ?>

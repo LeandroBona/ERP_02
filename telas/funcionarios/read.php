@@ -1,8 +1,6 @@
 <?php
-// Conectar ao banco de dados
 require_once '../admin/config.php';
 
-// Buscar todos os funcionários
 $sql = "SELECT f.funcionario_id, f.nome, f.cargo, f.telefone, f.email, f.data_admissao, f.salario, f.metodo_pagamento, s.nome AS setor
         FROM funcionarios f
         INNER JOIN setores s ON f.setor_id = s.setor_id";
@@ -12,6 +10,7 @@ $funcionarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
 ?>
 
 <?php include '../componentes/head.php'; ?>
+
 <body>
     <?php include '../componentes/navbar.php'; ?>
     <div class="container mt-5">
@@ -30,8 +29,13 @@ $funcionarios = $stmt->fetchAll(PDO::FETCH_ASSOC);
                             <p class="card-text"><strong>Email:</strong> <?= $funcionario['email'] ?></p>
                             <p class="card-text"><strong>Data de Admissão:</strong> <?= date('d/m/Y', strtotime($funcionario['data_admissao'])) ?></p>
                             <p class="card-text"><strong>Telefone:</strong> <?= $funcionario['telefone'] ?></p>
-                            <a href="update.php?id=<?= $funcionario['funcionario_id'] ?>" class="btn btn-warning btn-sm">Atualizar</a>
-                            <a href="delete.php?id=<?= $funcionario['funcionario_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">Excluir</a>
+                            <a href="update.php?id=<?= $funcionario['funcionario_id'] ?>" class="btn btn-warning btn-sm">
+                                <i class="fas fa-edit"></i> Atualizar
+                            </a>
+                            <a href="delete.php?id=<?= $funcionario['funcionario_id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Tem certeza que deseja excluir este funcionário?');">
+                                <i class="fas fa-trash-alt"></i> Excluir
+                            </a>
+
                         </div>
                     </div>
                 </div>
